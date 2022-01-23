@@ -1,0 +1,28 @@
+hub: 
+ image: selenium/hub:3.8.1
+ environment:
+    - TZ=Europe/Amsterdam
+    - GRID_TIMEOUT=90
+ ports:
+    - 4444:4444
+    
+firefox:
+ image: selenium/node-firefox:3.8.1
+ links:
+    - hub:hub
+ environment:
+    - TZ=Europe/Amsterdam
+    - SCREEN_WIDTH=1600
+    - SCREEN_HEIGHT=900
+    
+chrome:
+ image: selenium/node-chrome:3.8.1
+ links:
+    - hub:hub
+environment:
+    - TZ=Europe/Amsterdam
+    - SCREEN_WIDTH=1600
+    - SCREEN_HEIGHT=900
+volumes:
+    - /dev/shm:/dev/shm
+privileged: true
